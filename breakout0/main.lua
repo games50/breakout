@@ -99,14 +99,7 @@ function love.load()
     -- 5. 'victory' (the current level is over, with a victory jingle)
     -- 6. 'game-over' (the player has lost; display score and allow restart)
     gStateMachine = StateMachine {
-        ['start'] = function() return StartState() end,
-        ['paddle-select'] = function() return PaddleSelectState() end,
-        ['serve'] = function() return ServeState() end,
-        ['play'] = function() return PlayState() end,
-        ['victory'] = function() return VictoryState() end,
-        ['game-over'] = function() return GameOverState() end,
-        ['high-scores'] = function() return HighScoreState() end,
-        ['enter-high-score'] = function() return EnterHighScoreState() end
+        ['start'] = function() return StartState() end
     }
     gStateMachine:change('start')
 
