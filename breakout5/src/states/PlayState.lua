@@ -133,8 +133,10 @@ function PlayState:update(dt)
         self.health = self.health - 1
         gSounds['hurt']:play()
 
-        if health == 0 then
-            gStateMachine:change('game-over')
+        if self.health == 0 then
+            gStateMachine:change('game-over', {
+                score = self.score
+            })
         else
             gStateMachine:change('serve', {
                 paddle = self.paddle,
