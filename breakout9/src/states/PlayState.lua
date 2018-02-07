@@ -98,38 +98,39 @@ function PlayState:update(dt)
             end
 
             --
-            -- brick collision detection
-            -- 
-            -- test to see if an edge of the ball (plus a couple pixels of padding to help
-            -- with corner hits) lies outside of the brick after a collision takes place; if
-            -- this holds true, we can infer the side of the brick we hit
+            -- collision code for bricks
+            --
+            -- we check to see if the opposite side of our velocity is outside of the brick;
+            -- if it is, we trigger a collision on that side. else we're within the X + width of
+            -- the brick and should check to see if the top or bottom edge is outside of the brick,
+            -- colliding on the top or bottom accordingly 
             --
 
-            -- left edge
-            if self.ball.x + 2 < brick.x then
-
-                -- reverse X direction and place ball outside of brick
+            -- left edge; only check if we're moving right
+            if self.ball.x + 2 < brick.x and self.ball.dx > 0 then
+                
+                -- flip x velocity and reset position outside of brick
                 self.ball.dx = -self.ball.dx
                 self.ball.x = brick.x - 8
-
-            -- right edge
-            elseif self.ball.x + 6 > brick.x + brick.width then
-
-                -- reverse X direction and place ball outside of brick
+            
+            -- right edge; only check if we're moving left
+            elseif self.ball.x + 6 > brick.x + brick.width and self.ball.dx < 0 then
+                
+                -- flip x velocity and reset position outside of brick
                 self.ball.dx = -self.ball.dx
                 self.ball.x = brick.x + 32
-
-            -- top edge
-            elseif self.ball.y + 1 < brick.y then
+            
+            -- top edge if no X collisions, always check
+            elseif self.ball.y < brick.y then
                 
-                -- reverse Y direction and place ball outside of brick
+                -- flip y velocity and reset position outside of brick
                 self.ball.dy = -self.ball.dy
                 self.ball.y = brick.y - 8
-
-            -- bottom edge
+            
+            -- bottom edge if no X collisions or top collision, last possibility
             else
-
-                -- reverse Y direction and place ball outside of brick
+                
+                -- flip y velocity and reset position outside of brick
                 self.ball.dy = -self.ball.dy
                 self.ball.y = brick.y + 16
             end 
