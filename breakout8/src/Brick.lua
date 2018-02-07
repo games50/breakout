@@ -76,7 +76,8 @@ function Brick:init(x, y)
     -- gives generally downward 
     self.psystem:setLinearAcceleration(-15, 0, 15, 80)
 
-    -- spread of particles; normal looks more natural than uniform
+    -- spread of particles; normal looks more natural than uniform, which is clumpy; numbers
+    -- are amount of standard deviation away in X and Y axis
     self.psystem:setAreaSpread('normal', 10, 10)
 end
 

@@ -25,6 +25,7 @@ local highlightedChar = 1
 function EnterHighScoreState:enter(params)
     self.highScores = params.highScores
     self.score = params.score
+    self.scoreIndex = params.scoreIndex
 end
 
 function EnterHighScoreState:update(dt)
@@ -33,15 +34,15 @@ function EnterHighScoreState:update(dt)
         local name = string.char(chars[1]) .. string.char(chars[2]) .. string.char(chars[3])
 
         -- go backwards through high scores table till this score, shifting scores
-        for i = 10, highScoreIndex, -1 do
+        for i = 10, self.scoreIndex, -1 do
             self.highScores[i + 1] = {
                 name = self.highScores[i].name,
                 score = self.highScores[i].score
             }
         end
 
-        self.highScores[highScoreIndex].name = name
-        self.highScores[highScoreIndex].score = self.score
+        self.highScores[self.scoreIndex].name = name
+        self.highScores[self.scoreIndex].score = self.score
 
         -- write scores to file
         local scoresStr = ''
