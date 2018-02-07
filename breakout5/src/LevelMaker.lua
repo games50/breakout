@@ -31,7 +31,16 @@ function LevelMaker.createMap(level)
     -- lay out bricks such that they touch each other and fill the space
     for y = 1, numRows do
         for x = 1, numCols do
-            b = Brick(x * 32 - 24 + (13 - numCols) * 16, y * 16) 
+            b = Brick(
+                -- x-coordinate
+                (x-1)                   -- decrement x by 1 because tables are 1-indexed, coords are 0
+                * 32                    -- multiply by 32, the brick width
+                + 8                     -- the screen should have 8 pixels of padding; we can fit 13 cols + 16 pixels total
+                + (13 - numCols) * 16,  -- left-side padding for when there are fewer than 13 columns
+                
+                -- y-coordinate
+                y * 16                  -- just use y * 16, since we need top padding anyway
+            ) 
 
             table.insert(bricks, b)
         end
