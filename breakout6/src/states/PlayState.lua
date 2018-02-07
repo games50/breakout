@@ -92,14 +92,16 @@ function PlayState:update(dt)
             -- colliding on the top or bottom accordingly 
             --
 
-            -- left edge; only check if we're moving right
+            -- left edge; only check if we're moving right, and offset the check by a couple of pixels
+            -- so that flush corner hits register as Y flips, not X flips
             if self.ball.x + 2 < brick.x and self.ball.dx > 0 then
                 
                 -- flip x velocity and reset position outside of brick
                 self.ball.dx = -self.ball.dx
                 self.ball.x = brick.x - 8
             
-            -- right edge; only check if we're moving left
+            -- right edge; only check if we're moving left, , and offset the check by a couple of pixels
+            -- so that flush corner hits register as Y flips, not X flips
             elseif self.ball.x + 6 > brick.x + brick.width and self.ball.dx < 0 then
                 
                 -- flip x velocity and reset position outside of brick
