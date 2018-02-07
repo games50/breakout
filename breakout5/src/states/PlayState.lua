@@ -59,17 +59,13 @@ function PlayState:update(dt)
         -- tweak angle of bounce based on where it hits the paddle
         --
 
-        -- if we hit the paddle on its left side...
+        -- if we hit the paddle on its left side while moving left...
         if self.ball.x < self.paddle.x + (self.paddle.width / 2) and self.paddle.dx < 0 then
-            -- if the self.paddle is moving left...
-            if self.paddle.dx < 0 then
-                self.ball.dx = -50 + -(8 * (self.paddle.x + self.paddle.width / 2 - self.ball.x))
-            end
-        else
-            -- if the self.paddle is moving right...
-            if self.paddle.dx > 0 then
-                self.ball.dx = 50 + (8 * math.abs(self.paddle.x + self.paddle.width / 2 - self.ball.x))
-            end
+            self.ball.dx = -50 + -(8 * (self.paddle.x + self.paddle.width / 2 - self.ball.x))
+        
+            -- else if we hit the paddle on its right side while moving right...
+        elseif self.ball.x > self.paddle.x + (self.paddle.width / 2) and self.paddle.dx > 0 then
+            self.ball.dx = 50 + (8 * math.abs(self.paddle.x + self.paddle.width / 2 - self.ball.x))
         end
 
         gSounds['paddle-hit']:play()
