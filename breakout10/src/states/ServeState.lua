@@ -22,7 +22,6 @@ function ServeState:enter(params)
     self.bricks = params.bricks
     self.health = params.health
     self.score = params.score
-    self.highScores = params.highScores
     self.level = params.level
 
     -- init new ball (random color for fun)
@@ -43,7 +42,6 @@ function ServeState:update(dt)
             bricks = self.bricks,
             health = self.health,
             score = self.score,
-            highScores = self.highScores,
             ball = self.ball,
             level = self.level
         })

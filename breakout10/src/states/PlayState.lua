@@ -25,7 +25,6 @@ function PlayState:enter(params)
     self.bricks = params.bricks
     self.health = params.health
     self.score = params.score
-    self.highScores = params.highScores
     self.ball = params.ball
     self.level = params.level
 
@@ -94,7 +93,6 @@ function PlayState:update(dt)
                     paddle = self.paddle,
                     health = self.health,
                     score = self.score,
-                    highScores = self.highScores,
                     ball = self.ball
                 })
             end
@@ -137,7 +135,7 @@ function PlayState:update(dt)
                 -- flip y velocity and reset position outside of brick
                 self.ball.dy = -self.ball.dy
                 self.ball.y = brick.y + 16
-            end
+            end 
 
             -- slightly scale the y velocity to speed up the game, capping at +- 150
             if math.abs(self.ball.dy) < 150 then
@@ -156,8 +154,7 @@ function PlayState:update(dt)
 
         if self.health == 0 then
             gStateMachine:change('game-over', {
-                score = self.score,
-                highScores = self.highScores
+                score = self.score
             })
         else
             gStateMachine:change('serve', {
@@ -165,7 +162,6 @@ function PlayState:update(dt)
                 bricks = self.bricks,
                 health = self.health,
                 score = self.score,
-                highScores = self.highScores,
                 level = self.level
             })
         end

@@ -16,40 +16,6 @@
 
 Brick = Class{}
 
--- some of the colors in our palette (to be used with particle systems)
-paletteColors = {
-    -- blue
-    [1] = {
-        ['r'] = 99,
-        ['g'] = 155,
-        ['b'] = 255
-    },
-    -- green
-    [2] = {
-        ['r'] = 106,
-        ['g'] = 190,
-        ['b'] = 47
-    },
-    -- red
-    [3] = {
-        ['r'] = 217,
-        ['g'] = 87,
-        ['b'] = 99
-    },
-    -- purple
-    [4] = {
-        ['r'] = 215,
-        ['g'] = 123,
-        ['b'] = 186
-    },
-    -- gold
-    [5] = {
-        ['r'] = 251,
-        ['g'] = 242,
-        ['b'] = 54
-    }
-}
-
 function Brick:init(x, y)
     -- used for coloring and score calculation
     self.tier = 0
@@ -62,16 +28,6 @@ function Brick:init(x, y)
     
     -- used to determine whether this brick should be rendered
     self.inPlay = true
-
-    -- particle system belonging to the brick, emitted on hit
-    self.psystem = love.graphics.newParticleSystem(gTextures['particle'], 64)
-    self.psystem:setParticleLifetime(1, 2)
-    self.psystem:setSizeVariation(0.5)
-    self.psystem:setLinearAcceleration(-5, -5, 80, 80)
-    self.psystem:setSpin(0, 60)
-    self.psystem:setSpinVariation(1)
-    self.psystem:setTangentialAcceleration(10, 20)
-    self.psystem:setAreaSpread('normal', 10, 10)
 end
 
 --[[
@@ -79,21 +35,6 @@ end
     changing its color otherwise.
 ]]
 function Brick:hit()
-    -- set the particle system to interpolate between two colors; in this case, we give
-    -- it our self.color but with varying alpha; brighter for higher tiers, fading to 0
-    -- over the particle's lifetime (the second color)
-    self.psystem:setColors(
-        paletteColors[self.color].r,
-        paletteColors[self.color].g,
-        paletteColors[self.color].b,
-        55 * (self.tier + 1),
-        paletteColors[self.color].r,
-        paletteColors[self.color].g,
-        paletteColors[self.color].b,
-        0
-    )
-    self.psystem:emit(64)
-
     -- sound on hit
     gSounds['brick-hit-2']:stop()
     gSounds['brick-hit-2']:play()
@@ -123,10 +64,6 @@ function Brick:hit()
     end
 end
 
-function Brick:update(dt)
-    self.psystem:update(dt)
-end
-
 function Brick:render()
     if self.inPlay then
         love.graphics.draw(gTextures['main'], 
@@ -135,12 +72,4 @@ function Brick:render()
             gFrames['bricks'][1 + ((self.color - 1) * 4) + self.tier],
             self.x, self.y)
     end
-end
-
---[[
-    Need a separate render function for our particles so it can be called after all bricks are drawn;
-    otherwise, some bricks would render over other bricks' particle systems.
-]]
-function Brick:renderParticles()
-    love.graphics.draw(self.psystem, self.x + 16, self.y + 8)
 end

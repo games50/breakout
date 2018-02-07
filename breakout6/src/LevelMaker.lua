@@ -67,7 +67,7 @@ function LevelMaker.createMap(level)
         -- used only when we want to alternate a block, for alternate pattern
         local alternateFlag = math.random(2) == 1 and true or false
 
-        -- solid color we'll use if we're not skipping or alternating
+        -- solid color we'll use if we're not alternating
         local solidColor = math.random(1, highestColor)
         local solidTier = math.random(0, highestTier)
 

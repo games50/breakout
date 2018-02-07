@@ -62,7 +62,6 @@ function love.load()
     -- Quads we will generate for all of our textures; Quads allow us
     -- to show only part of a texture and not the entire thing
     gFrames = {
-        ['arrows'] = GenerateQuads(gTextures['arrows'], 24, 24),
         ['paddles'] = GenerateQuadsPaddles(gTextures['main']),
         ['balls'] = GenerateQuadsBalls(gTextures['main']),
         ['bricks'] = GenerateQuadsBricks(gTextures['main']),
@@ -115,8 +114,7 @@ function love.load()
         ['game-over'] = function() return GameOverState() end,
         ['victory'] = function() return VictoryState() end,
         ['high-scores'] = function() return HighScoreState() end,
-        ['enter-high-score'] = function() return EnterHighScoreState() end,
-        ['paddle-select'] = function() return PaddleSelectState() end
+        ['enter-high-score'] = function() return EnterHighScoreState() end
     }
     gStateMachine:change('start', {
         highScores = loadHighScores()

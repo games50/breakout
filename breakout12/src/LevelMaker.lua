@@ -44,7 +44,7 @@ function LevelMaker.createMap(level)
     -- don't go above 3
     local highestTier = math.min(3, math.floor(level / 5))
 
-    -- highest color of the highest tier, no higher than 5
+    -- highest color of the highest tier
     local highestColor = math.min(5, level % 5 + 3)
 
     -- lay out bricks such that they touch each other and fill the space

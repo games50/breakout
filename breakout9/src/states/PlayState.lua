@@ -135,7 +135,7 @@ function PlayState:update(dt)
                 -- flip y velocity and reset position outside of brick
                 self.ball.dy = -self.ball.dy
                 self.ball.y = brick.y + 16
-            end 
+            end
 
             -- slightly scale the y velocity to speed up the game, capping at +- 150
             if math.abs(self.ball.dy) < 150 then
