@@ -45,16 +45,14 @@ function PaddleSelectState:update(dt)
     if love.keyboard.wasPressed('return') or love.keyboard.wasPressed('enter') then
         gSounds['confirm']:play()
 
-        -- re-init recover points for the new game
-        recoverPoints = 5000
-
         gStateMachine:change('serve', {
             paddle = Paddle(self.currentPaddle),
             bricks = LevelMaker.createMap(32),
             health = 3,
             score = 0,
             highScores = self.highScores,
-            level = 32
+            level = 32,
+            recoverPoints = 5000
         })
     end
 
