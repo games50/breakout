@@ -82,37 +82,41 @@ function PlayState:update(dt)
             -- trigger the brick's hit function, which removes it from play
             brick:hit()
 
-            -- hit from the left
-            if self.ball.dx > 0 then
-                -- left edge
-                if self.ball.x + 2 < brick.x then
-                    self.ball.dx = -self.ball.dx
-                    self.ball.x = brick.x - 8
-                -- top edge
-                elseif self.ball.y + 1 < brick.y then
-                    self.ball.dy = -self.ball.dy
-                    self.ball.y = brick.y - 8
-                -- bottom edge
-                else
-                    -- bottom edge
-                    self.ball.dy = -self.ball.dy
-                    self.ball.y = brick.y + 16
-                end
+            --
+            -- brick collision detection
+            -- 
+            -- test to see if an edge of the ball (plus a couple pixels of padding to help
+            -- with corner hits) lies outside of the brick after a collision takes place; if
+            -- this holds true, we can infer the side of the brick we hit
+            --
+
+            -- left edge
+            if self.ball.x + 2 < brick.x then
+
+                -- reverse X direction and place ball outside of brick
+                self.ball.dx = -self.ball.dx
+                self.ball.x = brick.x - 8
+
+            -- right edge
+            elseif self.ball.x + 6 > brick.x + brick.width then
+
+                -- reverse X direction and place ball outside of brick
+                self.ball.dx = -self.ball.dx
+                self.ball.x = brick.x + 32
+
+            -- top edge
+            elseif self.ball.y + 1 < brick.y then
+                
+                -- reverse Y direction and place ball outside of brick
+                self.ball.dy = -self.ball.dy
+                self.ball.y = brick.y - 8
+
+            -- bottom edge
             else
-                -- right edge
-                if self.ball.x + 6 > brick.x + brick.width then
-                    -- reset self.ball position
-                    self.ball.dx = -self.ball.dx
-                    self.ball.x = brick.x + 32
-                elseif self.ball.y + 1 < brick.y then
-                    -- top edge
-                    self.ball.dy = -self.ball.dy
-                    self.ball.y = brick.y - 8
-                else
-                    -- bottom edge
-                    self.ball.dy = -self.ball.dy
-                    self.ball.y = brick.y + 16
-                end
+
+                -- reverse Y direction and place ball outside of brick
+                self.ball.dy = -self.ball.dy
+                self.ball.y = brick.y + 16
             end
 
             -- slightly scale the y velocity to speed up the game
