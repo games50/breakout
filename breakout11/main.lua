@@ -222,36 +222,35 @@ function loadHighScores()
         end
 
         love.filesystem.write('breakout.lst', scores)
-    else
+    end
 
-        -- flag for whether we're reading a name or not
-        local name = true
-        local currentName = nil
-        local counter = 1
+    -- flag for whether we're reading a name or not
+    local name = true
+    local currentName = nil
+    local counter = 1
 
-        -- initialize scores table with at least 10 blank entries
-        local scores = {}
+    -- initialize scores table with at least 10 blank entries
+    local scores = {}
 
-        for i = 1, 10 do
-            -- blank table; each will hold a name and a score
-            scores[i] = {
-                name = nil,
-                score = nil
-            }
+    for i = 1, 10 do
+        -- blank table; each will hold a name and a score
+        scores[i] = {
+            name = nil,
+            score = nil
+        }
+    end
+
+    -- iterate over each line in the file, filling in names and scores
+    for line in love.filesystem.lines('breakout.lst') do
+        if name then
+            scores[counter].name = string.sub(line, 1, 3)
+        else
+            scores[counter].score = tonumber(line)
+            counter = counter + 1
         end
 
-        -- iterate over each line in the file, filling in names and scores
-        for line in love.filesystem.lines('breakout.lst') do
-            if name then
-                scores[counter].name = string.sub(line, 1, 3)
-            else
-                scores[counter].score = tonumber(line)
-                counter = counter + 1
-            end
-
-            -- flip the name flag
-            name = not name
-        end
+        -- flip the name flag
+        name = not name
     end
 
     return scores
