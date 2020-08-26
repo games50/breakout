@@ -15,8 +15,8 @@
     CS50 student 2020 (online) Netherlands
     jaujau088@gmail.com
     - Changed setColor values from base 255 to base 1
-    - Changed "level" value that is passed on to serve state from 32 to 1
-      so that level now starts from 1 instead of 32
+    - Changed "level" and "bricks" values that are passed to serve state from 32 to 1
+      so that level and difficulty now starts from 1 instead of 32
 ]]
 
 PaddleSelectState = Class{__includes = BaseState}
@@ -54,7 +54,7 @@ function PaddleSelectState:update(dt)
 
         gStateMachine:change('serve', {
             paddle = Paddle(self.currentPaddle),
-            bricks = LevelMaker.createMap(32),
+            bricks = LevelMaker.createMap(1),
             health = 3,
             score = 0,
             highScores = self.highScores,
