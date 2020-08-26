@@ -10,6 +10,13 @@
     Represents the state the game is in when we've just started; should
     simply display "Breakout" in large text, as well as a message to press
     Enter to begin.
+
+    Update to LÖVE v11 and few bugs fixation by: Jauhari Alafi
+    CS50 student 2020 (online) Netherlands
+    jaujau088@gmail.com
+    - Changed setColor values from base 255 to base 1
+    - Changed "level" value that is passed on to serve state from 32 to 1
+      so that level now starts from 1 instead of 32
 ]]
 
 PaddleSelectState = Class{__includes = BaseState}
@@ -51,7 +58,7 @@ function PaddleSelectState:update(dt)
             health = 3,
             score = 0,
             highScores = self.highScores,
-            level = 32,
+            level = 1,
             recoverPoints = 5000
         })
     end
@@ -74,27 +81,27 @@ function PaddleSelectState:render()
     -- in a shadowy form to let us know we're as far left as we can go
     if self.currentPaddle == 1 then
         -- tint; give it a dark gray with half opacity
-        love.graphics.setColor(40, 40, 40, 128)
+        love.graphics.setColor(40/255, 40/255, 40/255, 128/255)
     end
     
     love.graphics.draw(gTextures['arrows'], gFrames['arrows'][1], VIRTUAL_WIDTH / 4 - 24,
         VIRTUAL_HEIGHT - VIRTUAL_HEIGHT / 3)
    
     -- reset drawing color to full white for proper rendering
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(1, 1, 1, 1)
 
     -- right arrow; should render normally if we're less than 4, else
     -- in a shadowy form to let us know we're as far right as we can go
     if self.currentPaddle == 4 then
         -- tint; give it a dark gray with half opacity
-        love.graphics.setColor(40, 40, 40, 128)
+        love.graphics.setColor(40/255, 40/255, 40/255, 128/255)
     end
     
     love.graphics.draw(gTextures['arrows'], gFrames['arrows'][2], VIRTUAL_WIDTH - VIRTUAL_WIDTH / 4,
         VIRTUAL_HEIGHT - VIRTUAL_HEIGHT / 3)
     
     -- reset drawing color to full white for proper rendering
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(1, 1, 1, 1)
 
     -- draw the paddle itself, based on which we have selected
     love.graphics.draw(gTextures['main'], gFrames['paddles'][2 + 4 * (self.currentPaddle - 1)],

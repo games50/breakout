@@ -12,6 +12,11 @@
     the ball will bounce away depending on the angle of collision. When all
     bricks are cleared in the current map, the player should be taken to a new
     layout of bricks.
+
+    Update to LÖVE v11 and few bugs fixation by: Jauhari Alafi
+    CS50 student 2020 (online) Netherlands
+    jaujau088@gmail.com
+    - Updated ParticleSystem:setAreaSpread to ParticleSystem:setEmissionArea
 ]]
 
 Brick = Class{}
@@ -77,7 +82,8 @@ function Brick:init(x, y)
     self.psystem:setLinearAcceleration(-15, 0, 15, 80)
 
     -- spread of particles; normal looks more natural than uniform
-    self.psystem:setAreaSpread('normal', 10, 10)
+    -- Old version: self.psystem:setAreaSpread, LÖVE v11: self.psystem:setEmissionArea
+    self.psystem:setEmissionArea('normal', 10, 10)
 end
 
 --[[
