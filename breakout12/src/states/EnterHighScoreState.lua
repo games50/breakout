@@ -93,22 +93,22 @@ function EnterHighScoreState:render()
     -- render all three characters of the name
     --
     if highlightedChar == 1 then
-        love.graphics.setColor(103, 255, 255, 255)
+        love.graphics.setColor(103/255, 1, 1, 1)
     end
     love.graphics.print(string.char(chars[1]), VIRTUAL_WIDTH / 2 - 28, VIRTUAL_HEIGHT / 2)
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(1, 1, 1, 1)
 
     if highlightedChar == 2 then
-        love.graphics.setColor(103, 255, 255, 255)
+        love.graphics.setColor(103/255, 1, 1, 1)
     end
     love.graphics.print(string.char(chars[2]), VIRTUAL_WIDTH / 2 - 6, VIRTUAL_HEIGHT / 2)
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(1, 1, 1, 1)
 
     if highlightedChar == 3 then
-        love.graphics.setColor(103, 255, 255, 255)
+        love.graphics.setColor(103/255, 1, 1, 1)
     end
     love.graphics.print(string.char(chars[3]), VIRTUAL_WIDTH / 2 + 20, VIRTUAL_HEIGHT / 2)
-    love.graphics.setColor(255, 255, 255, 255)
+    love.graphics.setColor(1, 1, 1, 1)
     
     love.graphics.setFont(gFonts['small'])
     love.graphics.printf('Press Enter to confirm!', 0, VIRTUAL_HEIGHT - 18,
